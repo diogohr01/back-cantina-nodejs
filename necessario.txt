@@ -35,3 +35,12 @@ yarn add jsonwebtoken
 yarn add @types/jsonwebtoken -D
 
 yarn add dotenv
+
+criar um migrate:
+
+yarn prisma migrate dev
+
+yarn add multer
+
+
+yarn add @types/multer -D
