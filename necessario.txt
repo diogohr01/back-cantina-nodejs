@@ -1,0 +1,37 @@
+npm install --global yarn
+
+yarn add typescript -D
+
+npm add express
+
+npm add @types/express -D
+
+yarn tsc --init
+
+yarn add ts-node-dev -D
+
+"dev": "ts-node-dev src/server.ts"
+
+yarn add express-async-errors
+
+yarn add cors
+
+yarn add @types/cors -D
+
+
+yarn add prisma
+
+
+yarn add @prisma/client
+
+npx prisma init
+
+yarn add bcryptjs
+
+yarn add @types/bcryptjs -D
+
+yarn add jsonwebtoken
+
+yarn add @types/jsonwebtoken -D
+
+yarn add dotenv
