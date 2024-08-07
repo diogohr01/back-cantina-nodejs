@@ -1,1 +1,1 @@
-Backend do projeto restaurante realizado com node.js e typescript.
+Backend do projeto totem autoatendimento realizado com node.js e typescript.
