@@ -4,7 +4,8 @@ import { sign } from "jsonwebtoken";
 
 interface AuthRequest{
     email: string,
-    password:string
+    password:string,
+
 }
 
 class AuthUserService{
@@ -40,6 +41,7 @@ class AuthUserService{
             id:user.id,
             name: user.name,
             email: user.email,
+            pin: user.pin,
             token: token
           }
           
