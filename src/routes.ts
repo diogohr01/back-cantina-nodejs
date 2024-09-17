@@ -17,6 +17,8 @@ import { SendOrderController } from './controllers/order/SendOrderController';
 import { ListOrderController } from './controllers/order/ListOrderController';
 import { DetailOrderController } from './controllers/order/DetailOrderController';
 import { FinishOrderController } from './controllers/order/FinishOrderController';
+import { ListProductController } from './controllers/product/ListProductController';
+import { SendSoldController } from './controllers/dashboard/SendSoldController';
 
 const router = Router();
 
@@ -35,6 +37,7 @@ router.get('/category',isAuthenticated, new ListCategoryController().handle)
 
 // -- ROTAS PRODUTOS -- 
 router.post('/product',isAuthenticated, upload.single('file'), new CreateProductController().handle)
+router.get('/products', isAuthenticated, new ListProductController().handle )
 router.get('/category/product',isAuthenticated, new ListByCategoryController().handle)
 
 
@@ -52,5 +55,9 @@ router.get('/order/detail', isAuthenticated, new DetailOrderController().handle)
 router.put('/order/finish', isAuthenticated, new FinishOrderController().handle)
 
 
+// -- ROTAS DASHBOARD
+router.get('/sold', isAuthenticated, new SendSoldController().handle)
+
 
 export { router }; 
+
