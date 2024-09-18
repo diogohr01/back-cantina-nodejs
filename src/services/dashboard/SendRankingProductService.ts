@@ -4,6 +4,7 @@
         id: string;
         produto: string;
         quantidade: number;
+        price?: Number;
     }
 
     interface produtoRankingProps {
@@ -31,18 +32,25 @@
 
             for (const order of orders) {
                 if (order.produto.id) {
-                    const existingProduct = produtos.produtos.find((p) => p.id === order.produto.id);
+                 const existingProduct = produtos.produtos.find((p) => p.id === order.produto.id);
                     if (existingProduct) {
-                        existingProduct.quantidade++;
+                        
+                        let quantity = existingProduct.quantidade += order.amount;
+                    
+                        let totalPrice = quantity * Number(order.produto.price);
+                        existingProduct.price = totalPrice
+
                     } else {
-                        produtos.produtos.push({ id: order.produto.id, produto: order.produto.name, quantidade: 1 });
+                        produtos.produtos.push({ id: order.produto.id, produto: order.produto.name, quantidade: order.amount, price: Number(order.produto.price) * order.amount});
                     }
                 }
             }
             produtos.produtos.sort((a,b) => b.quantidade - a.quantidade);
             produtos.produtos.slice(0, 10)
+
             return produtos ;
         }
     }
 
     export { SendRankingProductService };
+
