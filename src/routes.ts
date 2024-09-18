@@ -19,6 +19,7 @@ import { DetailOrderController } from './controllers/order/DetailOrderController
 import { FinishOrderController } from './controllers/order/FinishOrderController';
 import { ListProductController } from './controllers/product/ListProductController';
 import { SendSoldController } from './controllers/dashboard/SendSoldController';
+import { SendRankingProductController } from './controllers/dashboard/SendRankingProductController';
 
 const router = Router();
 
@@ -57,6 +58,7 @@ router.put('/order/finish', isAuthenticated, new FinishOrderController().handle)
 
 // -- ROTAS DASHBOARD
 router.get('/sold', isAuthenticated, new SendSoldController().handle)
+router.get('/rankingProduct', isAuthenticated, new SendRankingProductController().handle)
 
 
 export { router }; 
