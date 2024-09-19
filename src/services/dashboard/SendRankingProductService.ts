@@ -36,7 +36,7 @@
                     if (existingProduct) {
                         
                         let quantity = existingProduct.quantidade += order.amount;
-                    
+
                         let totalPrice = quantity * Number(order.produto.price);
                         existingProduct.price = totalPrice
 
