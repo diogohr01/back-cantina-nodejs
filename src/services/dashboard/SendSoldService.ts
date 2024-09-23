@@ -21,3 +21,6 @@ class SendSoldService {
 }
 
 export { SendSoldService };
+ 
+// eai diogo, meu primeiro commit
+
