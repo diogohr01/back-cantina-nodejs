@@ -4,7 +4,6 @@ import prismaClient from "../../prisma";
 
 class ListByProductsService{
     async execute(){
-        //listar produtos por categoria
         const products = await prismaClient.product.findMany({
             select:{
                   id: true,
