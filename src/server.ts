@@ -15,7 +15,7 @@ app.use(
     '/files',
     express.static(path.resolve(__dirname,'..', 'tmp'))
 )
-
+  
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if(err instanceof Error){
     //Se for uma instancia do tipo error
@@ -32,3 +32,5 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 })
 
 app.listen(3333, () => console.log('Servidor online!!!!'))
+
+//teste bitbucket
