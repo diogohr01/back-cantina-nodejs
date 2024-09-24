@@ -61,5 +61,8 @@ router.get('/sold', isAuthenticated, new SendSoldController().handle)
 router.get('/rankingProduct', isAuthenticated, new SendRankingProductController().handle)
 
 
+// -- ROTAS QRCODE 
+
 export { router }; 
 
+//novo teste bitbucket

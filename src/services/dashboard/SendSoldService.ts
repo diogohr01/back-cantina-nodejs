@@ -1,4 +1,6 @@
 import prismaClient from "../../prisma";
+const EfiPay = require('sdk-node-apis-efi')
+
 
 class SendSoldService {
     async execute() {
@@ -22,3 +24,5 @@ class SendSoldService {
 }
 
 export { SendSoldService };
+
+//diogo
