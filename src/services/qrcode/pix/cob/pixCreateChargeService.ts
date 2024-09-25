@@ -5,9 +5,11 @@ import options from '../../credentials';
 interface CreatePixOrderRequest {
 
     order_id: string;
-    cpf: string;
+    cpf?: string;
     username: string;
+   
 }
+
 
 class CreatePixOrderService {
     async execute({ order_id, cpf, username }: CreatePixOrderRequest) {
@@ -42,7 +44,7 @@ class CreatePixOrderService {
             },
             devedor: {
                 cpf: cpf ,
-                nome: username,
+                nome: username ,
             },
             valor: {
                 original: valorTotal,  
@@ -64,14 +66,23 @@ class CreatePixOrderService {
         try {
             const response = await efipay.pixCreateImmediateCharge({}, body);
 
-            return { pixResponse: response };
+            const pixResponseId = response.loc.id;
+
+            const qrCodeResponse = await efipay.pixGenerateQRCode({id: pixResponseId})
+
+            return qrCodeResponse;
 
         } catch (error) {
             console.error("Erro ao criar cobrança Pix:", error);
             throw new Error("Erro ao criar cobrança Pix.");
               }
              }
+    
+    
 
 }
 
 export { CreatePixOrderService };
+
+
+
