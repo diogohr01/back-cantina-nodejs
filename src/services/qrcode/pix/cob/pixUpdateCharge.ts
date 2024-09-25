@@ -1,6 +1,6 @@
-const EfiPay = require('sdk-node-apis-efi')
-const options = require('../../credentials')
-
+import EfiPay from 'sdk-node-apis-efi';
+import options from '../../credentials'
+//Informe no body somente os dados que deseja atualizar
 let body = {
 	calendario: {
 		expiracao: 3600,
@@ -12,11 +12,11 @@ let body = {
 	valor: {
 		original: '123.45',
 	},
-	chave: 'SUACHAVEPIX', // Informe sua chave Pix cadastrada na efipay.	//o campo abaixo é opcional
+	chave: 'SUACHAVEPIX', // Informe sua chave Pix cadastrada na efipay.	
 	infoAdicionais: [
 		{
 			nome: 'Pagamento em',
-			valor: 'Cantina - senai',
+			valor: 'NOME DO SEU ESTABELECIMENTO',
 		},
 		{
 			nome: 'Pedido',
@@ -26,13 +26,13 @@ let body = {
 }
 
 let params = {
-	txid: 'dt9BHlyzrb5jrFNAdfEDVpHgiOmDbVq111',
+	txid: 'dt9BHlyzrb5jrFNAdfEDVpHgiOmDbVqVxd', // Informe o TxId da cobrança
 }
 
 const efipay = new EfiPay(options)
 
-// O método pixCreateCharge indica os campos que devem ser enviados e que serão retornados
-efipay.pixCreateCharge(params, body)
+// O método pixUpdateCharge indica os campos que devem ser enviados e que serão retornados
+efipay.pixUpdateCharge(params, body)
 	.then((resposta) => {
 		console.log(resposta) // Aqui você tera acesso a resposta da API e os campos retornados de forma intuitiva
 	})

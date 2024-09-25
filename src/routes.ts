@@ -20,6 +20,7 @@ import { FinishOrderController } from './controllers/order/FinishOrderController
 import { ListProductController } from './controllers/product/ListProductController';
 import { SendSoldController } from './controllers/dashboard/SendSoldController';
 import { SendRankingProductController } from './controllers/dashboard/SendRankingProductController';
+import { pixCreateChargeController } from './controllers/qrcode/pixCreateChargeController';
 
 const router = Router();
 
@@ -62,6 +63,8 @@ router.get('/rankingProduct', isAuthenticated, new SendRankingProductController(
 
 
 // -- ROTAS QRCODE 
+router.get('/qrcode-cobrar', new pixCreateChargeController().handle)
+
 
 export { router }; 
 

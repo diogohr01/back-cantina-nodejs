@@ -1,5 +1,5 @@
-const EfiPay = require('sdk-node-apis-efi')
-const options = require('../../credentials')
+import EfiPay from 'sdk-node-apis-efi';
+import options from '../../credentials'
 
 let params = {
 	txid: 'dt9BHlyzrb5jrFNAdfEDVpHgiOmDbVqVxd',
