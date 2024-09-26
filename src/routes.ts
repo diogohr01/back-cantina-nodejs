@@ -65,7 +65,7 @@ router.get('/rankingProduct', isAuthenticated, new SendRankingProductController(
 
 // -- ROTAS QRCODE 
 router.get('/qrcode-cobrar', new pixCreateChargeController().handle)
-router.get('/webhook', new webhookController().handle )
+router.post('/webhook(/pix)?', new webhookController().handle )
 
 export { router }; 
 
