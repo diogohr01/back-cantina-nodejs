@@ -20,6 +20,8 @@ import { FinishOrderController } from './controllers/order/FinishOrderController
 import { ListProductController } from './controllers/product/ListProductController';
 import { SendSoldController } from './controllers/dashboard/SendSoldController';
 import { SendRankingProductController } from './controllers/dashboard/SendRankingProductController';
+import { pixCreateChargeController } from './controllers/qrcode/pixCreateChargeController';
+import { webhookController } from './controllers/qrcode/webhookController';
 
 const router = Router();
 
@@ -61,5 +63,10 @@ router.get('/sold', isAuthenticated, new SendSoldController().handle)
 router.get('/rankingProduct', isAuthenticated, new SendRankingProductController().handle)
 
 
+// -- ROTAS QRCODE 
+router.get('/qrcode-cobrar', new pixCreateChargeController().handle)
+router.post('/webhook(/pix)?', new webhookController().handle )
+
 export { router }; 
 
+//novo teste bitbucket

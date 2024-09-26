@@ -60,8 +60,11 @@ model Order {
   name String?
   created_at DateTime? @default(now())
   deleted_at DateTime? @default(now())
-
-
+  paid Boolean @default(false)
+  qrcode String?
+  txid String?
+  dataFechamento DateTime?
+  
   @@map("orders")
   items Item[]
 }

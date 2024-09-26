@@ -8,7 +8,8 @@ class FinishOrderController{
             const FinishOrder = new FinishOrderService();
 
             const order = await FinishOrder.execute({
-                  order_id
+                  order_id,
+                  
             })
             return res.json(order)
       }
