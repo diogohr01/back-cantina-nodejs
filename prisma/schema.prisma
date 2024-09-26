@@ -64,10 +64,13 @@ model Order {
   qrcode String?
   txid String?
   dataFechamento DateTime?
+
+  items Item[]
+  paymentMethod PaymentMethod[]
   
   @@map("orders")
-  items Item[]
 }
+
 
 model Item{
   id String @id @default(uuid())
@@ -81,4 +84,18 @@ model Item{
   @@map("items")
   order_id String
   product_id String
+}
+
+model PaymentMethod {
+  id String @id @default(uuid())
+  name String
+  depara String  
+
+  order_id String
+  order Order @relation(fields: [order_id], references: [id])
+
+  created_at DateTime? @default(now())
+  deleted_at DateTime? @default(now())
+
+  @@map("paymentmethods")
 }

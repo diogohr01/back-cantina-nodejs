@@ -9,7 +9,7 @@ class FinishOrderService{
             const finish = await prismaClient.order.update({
                   where:{
                         id: order_id,
-                        paid: true
+                      //  paid: true
 
                   },
                   data:{
