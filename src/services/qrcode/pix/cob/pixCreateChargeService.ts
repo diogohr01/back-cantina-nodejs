@@ -1,6 +1,7 @@
 import prismaClient from "../../../../prisma";
-import EfiPay from 'sdk-node-apis-efi';
+import EfiPay from 'sdk-typescript-apis-efi';
 import options from '../../credentials';
+import { DateTime } from 'luxon'; // Biblioteca para ajustar o fuso horário
 
 interface CreatePixOrderRequest {
     order_id: string;
@@ -27,14 +28,9 @@ class CreatePixOrderService {
             throw new Error("Itens não encontrados");
         }
 
-        
-        let totalPedido = 0;
-        for (const item of order.items) {
-            totalPedido += Number(item.produto.price) * item.amount;
-        }
-        let valorTotal = totalPedido.toFixed(2);
 
-        
+
+
         let body = {
             calendario: {
                 expiracao: 3600,
@@ -44,9 +40,9 @@ class CreatePixOrderService {
                 nome: username,
             },
             valor: {
-                original: valorTotal,
+                original: '0.01',
             },
-            chave: '1d9f5990-5271-4ae6-8c30-fa38d1661883', 
+            chave: '1d9f5990-5271-4ae6-8c30-fa38d1661883',
             infoAdicionais: [
                 {
                     nome: 'Pagamento em',
@@ -58,42 +54,34 @@ class CreatePixOrderService {
                 },
             ],
         };
-
+        
         const efipay = new EfiPay(options);
         try {
-            // Criação da cobrança Pix
+            
             const response = await efipay.pixCreateImmediateCharge({}, body);
             const pixResponseId = response.loc.id;
             const responseTxId = response.txid;
             const qrCodeResponse = await efipay.pixGenerateQRCode({ id: pixResponseId });
 
-           
-            const dueSeconds = 3600; 
-            const now = new Date(); 
-            const due = new Date(now.getTime() + dueSeconds * 1000); 
-            
-          
-            const dataFechamento = due.toISOString(); 
+            const dueSeconds = 3600; // 1 hora
+            const dataCriacaoUTC = response.calendario.criacao
+            const dataCriacaoBrasilia = DateTime.fromISO(dataCriacaoUTC, { zone: 'utc' })
+                .setZone('America/Sao_Paulo')
 
-           
-            const updateOrder =  await prismaClient.order.update({
+            const updateOrder = await prismaClient.order.update({
                 where: {
                     id: order_id
                 },
                 data: {
-                    txid: responseTxId,  
-                    qrcode: qrCodeResponse.qrcode, 
-                    dataFechamento: dataFechamento, 
+                    txid: responseTxId,
+                    qrcode: qrCodeResponse.qrcode,
+                    dataFechamento: response.calendario.criacao,
                 }
             });
 
             if (updateOrder) {
                 return {
-                    qrCodeResponse,
-                    order_id,
-                    valor: valorTotal,
-                    dataFechamento,
-                    responseTxId
+                   response
                 };
             }
 

@@ -3,22 +3,18 @@ import EfiPay from 'sdk-typescript-apis-efi';
 import options from '../../credentials';
 
 
-class webhookService {
+class detailWebhookService {
   async execute() {
-    options['validateMtls'] = false;
-
-    let body = {
-      webhookUrl: 'https://webhook.site/774dd130-5e62-4eb4-a628-e509d8d5f68d'
-    };
 
     let params = {
       chave: '1d9f5990-5271-4ae6-8c30-fa38d1661883',
     };
 
     const efipay = new EfiPay(options);
-
+    
     try {
-      const response = await efipay.pixConfigWebhook(params, body);
+      const response = await efipay.pixDetailWebhook(params);
+      
       return response;
     } catch (error) {
       console.error('Error configuring webhook:', error);
@@ -26,4 +22,4 @@ class webhookService {
     }
   }
 }
-export { webhookService };
+export { detailWebhookService };
