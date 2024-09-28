@@ -5,7 +5,7 @@ interface UserRequest{
   name: string;
   email: string;
   password: string;
-  pin: string;
+  pin?: number;
 }
 
 class CreateUserService{
@@ -27,6 +27,7 @@ class CreateUserService{
       throw new Error("User already exists")
     }
     const passwordHash = await hash(password, 8)
+    
     
 
     const user = await prismaClient.user.create({

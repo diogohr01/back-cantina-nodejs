@@ -24,6 +24,7 @@ import { webhookController } from './controllers/qrcode/webhookController';
 import { detailWebhookController } from './controllers/qrcode/detailWebhookController';
 import { listPixController } from './controllers/qrcode/listWebhookController';
 import { pixCreateChargeController } from './controllers/qrcode/pixCreateChargeController';
+import { AuthUserPinController } from './controllers/user/AuthUserPinController';
 
 const router = Router();
 
@@ -33,6 +34,8 @@ const upload = multer(uploadConfig.upload('./tmp'))
 //-- ROTAS USER --
 router.post('/users', new CreateUserController().handle)
 router.post('/session', new AuthUserController().handle)
+router.post('/sessionPin', new AuthUserPinController().handle)
+
 router.get('/user-info', isAuthenticated, new DetailUserController().handle)
 
 // -- ROTAS CATEGORY --
