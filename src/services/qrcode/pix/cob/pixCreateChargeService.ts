@@ -1,5 +1,5 @@
 import prismaClient from "../../../../prisma";
-import EfiPay from 'sdk-typescript-apis-efi';
+import EfiPay from 'sdk-node-apis-efi';
 import options from '../../credentials';
 import { DateTime } from 'luxon'; // Biblioteca para ajustar o fuso horário
 
@@ -28,6 +28,12 @@ class CreatePixOrderService {
             throw new Error("Itens não encontrados");
         }
 
+        let totalVendido = 0
+
+        for(const i of order.items){
+           totalVendido += Number(i.produto.price) * i.amount
+        }
+    
 
 
 
@@ -40,7 +46,7 @@ class CreatePixOrderService {
                 nome: username,
             },
             valor: {
-                original: '0.01',
+                original: totalVendido.toFixed(2),
             },
             chave: '1d9f5990-5271-4ae6-8c30-fa38d1661883',
             infoAdicionais: [
@@ -60,7 +66,6 @@ class CreatePixOrderService {
             
             const response = await efipay.pixCreateImmediateCharge({}, body);
             const pixResponseId = response.loc.id;
-            const responseTxId = response.txid;
             const qrCodeResponse = await efipay.pixGenerateQRCode({ id: pixResponseId });
 
             const dueSeconds = 3600; // 1 hora
@@ -68,20 +73,25 @@ class CreatePixOrderService {
             const dataCriacaoBrasilia = DateTime.fromISO(dataCriacaoUTC, { zone: 'utc' })
                 .setZone('America/Sao_Paulo')
 
+
+            
             const updateOrder = await prismaClient.order.update({
                 where: {
                     id: order_id
                 },
                 data: {
-                    txid: responseTxId,
-                    qrcode: qrCodeResponse.qrcode,
-                    dataFechamento: response.calendario.criacao,
+                   
+                    paid: true,
+
+
                 }
-            });
+            })
+        
 
             if (updateOrder) {
                 return {
-                   response
+                   response,
+                   qrCodeResponse
                 };
             }
 
@@ -89,7 +99,9 @@ class CreatePixOrderService {
             console.error("Erro ao criar cobrança Pix:", error);
             throw new Error("Erro ao criar cobrança Pix.");
         }
+
     }
+    
 }
 
 export { CreatePixOrderService };

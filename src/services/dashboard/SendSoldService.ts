@@ -12,6 +12,7 @@ class SendSoldService {
             where: {
                 order: {
                     status: true, 
+                    paid: true
                 },
             },
         });

@@ -3,14 +3,12 @@ import 'express-async-errors';
 import cors from 'cors';
 import path from 'path'
 import { router } from './routes'
-import bodyparser from 'body-parser'
 
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use(bodyparser.json())
 
 
 app.use(router);
