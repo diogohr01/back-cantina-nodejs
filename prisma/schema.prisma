@@ -68,7 +68,7 @@ model Order {
 
   items Item[]
   paymentMethod PaymentMethod[]
-  
+  orderPayments  OrderPayment[]
   @@map("orders")
 }
 
@@ -99,4 +99,19 @@ model PaymentMethod {
   deleted_at DateTime? @default(now())
 
   @@map("paymentmethods")
+   orderPayments  OrderPayment[]
+}
+model OrderPayment{
+  id String @id @default(uuid())
+  orderId String
+  paymentId String 
+
+  order   Order   @relation(fields: [orderId], references: [id], map: "orderpayments_order_id_fkey")
+  payment   PaymentMethod @relation(fields: [paymentId], references: [id], map: "orderpayments_payment_id_fkey")
+  
+  created_at DateTime? @default(now())
+  deleted_at DateTime? @default(now())
+  
+  @@map("orderpayments")
+  
 }
