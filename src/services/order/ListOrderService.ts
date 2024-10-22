@@ -9,8 +9,8 @@ class ListOrderService {
                   }
                   
             })
-            orders.slice(10)
-            return orders
+            
+            return orders.slice(10)
       }
 }
 
