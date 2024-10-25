@@ -12,6 +12,7 @@ class ListByCategoryService{
                 category_id: category_id
             }
         })
+
         return findByCategory;
     }
 }

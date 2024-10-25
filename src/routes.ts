@@ -25,6 +25,7 @@ import { detailWebhookController } from './controllers/qrcode/detailWebhookContr
 import { listPixController } from './controllers/qrcode/listWebhookController';
 import { pixCreateChargeController } from './controllers/qrcode/pixCreateChargeController';
 import { AuthUserPinController } from './controllers/user/AuthUserPinController';
+import { ListProductByOrderController } from './controllers/product/ListProductByOrderController';
 
 const router = Router();
 
@@ -47,6 +48,7 @@ router.get('/category',isAuthenticated, new ListCategoryController().handle)
 router.post('/product',isAuthenticated, upload.single('file'), new CreateProductController().handle)
 router.get('/products', isAuthenticated, new ListProductController().handle )
 router.get('/category/product',isAuthenticated, new ListByCategoryController().handle)
+router.get('/products/order',isAuthenticated, new ListProductByOrderController().handle)
 
 
 // -- ROTAS ORDER -- 

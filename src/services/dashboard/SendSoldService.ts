@@ -17,7 +17,6 @@ class SendSoldService {
             },
         });
 
-        console.log(sold)
         const totalValue = sold.reduce((total, item) => total + Number(item.produto.price) * item.amount , 0);
 
         return { totalValue: totalValue };
